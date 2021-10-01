@@ -30,6 +30,14 @@ public:
     //// STUDENT CODE
     ////
 
+
+    // move constructor
+
+    ChatBot(ChatBot   &&source ) noexcept ;
+
+    // move assignment operator
+    ChatBot &operator=(ChatBot   &&source );
+
     ////
     //// EOF STUDENT CODE
 
