@@ -35,8 +35,19 @@ public:
 
     ChatBot(ChatBot   &&source ) noexcept ;
 
+    // copy constructor
+
+    ChatBot(ChatBot   &source ) noexcept ;
+
+
     // move assignment operator
     ChatBot &operator=(ChatBot   &&source );
+
+    // copy assignment operator
+    ChatBot &operator=(ChatBot   &source );
+
+
+
 
     ////
     //// EOF STUDENT CODE

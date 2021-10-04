@@ -55,7 +55,7 @@ public:
     void MoveChatbotHere(ChatBot *chatbot);
 
     ////
-    void SmartMoveChatbotToNewNode(std::unique_ptr<GraphNode> newNode);
+    void SmartMoveChatbotToNewNode(GraphNode *newNode);
     //// EOF STUDENT CODE
 
     void MoveChatbotToNewNode(GraphNode *newNode);

@@ -26,6 +26,8 @@ private:
     // data handles (not owned)
     GraphNode *_currentNode;
     ChatBot *_chatBot;
+    //std::weak_ptr<ChatBot> _chatBot;
+
     ChatBotPanelDialog *_panelDialog;
 
     // proprietary type definitions

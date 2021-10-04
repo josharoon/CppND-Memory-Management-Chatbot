@@ -37,7 +37,7 @@ ChatBot::~ChatBot()
     // deallocate heap memory
     if(_image != NULL) // Attention: wxWidgets used NULL and not nullptr
     {
-        delete _image;
+        //delete _image;
         _image = NULL;
     }
 }
@@ -45,8 +45,7 @@ ChatBot::~ChatBot()
 //// STUDENT CODE
 ////
 ChatBot::ChatBot(ChatBot &&source) noexcept {
-    std::cout << "MOVING (assign) instance " << &source << " to instance " << this << std::endl;
-
+    std::cout << "MOVING  instance " << &source << " to instance " << this << std::endl;
     _image = source._image;
     _chatLogic = source._chatLogic;
     _rootNode = source._rootNode;
@@ -54,6 +53,7 @@ ChatBot::ChatBot(ChatBot &&source) noexcept {
     source._image = nullptr;
     source._chatLogic = nullptr;
     source._rootNode = nullptr;
+    _chatLogic->SetChatbotHandle(this);
 }
 
 ChatBot &ChatBot::operator=(ChatBot &&source) {
@@ -69,11 +69,41 @@ ChatBot &ChatBot::operator=(ChatBot &&source) {
     source._chatLogic = nullptr;
     source._rootNode = nullptr;
 
+    _chatLogic->SetChatbotHandle(this);
     return *this;
 
 
 
 }
+
+ChatBot &ChatBot::operator=(ChatBot &source) {
+    std::cout << "copying (assign) instance " << &source << " to instance " << this << std::endl;
+    if (this == &source)
+        return *this;
+    delete _image;
+    _image = source._image;
+    _chatLogic = source._chatLogic;
+    _rootNode = source._rootNode;
+
+    _chatLogic->SetChatbotHandle(this);
+
+
+    return *this;
+}
+
+ChatBot::ChatBot(ChatBot &source) noexcept {
+    std::cout << "copying  instance " << &source << " to instance " << this << std::endl;
+
+    _image = source._image;
+    _chatLogic = source._chatLogic;
+    _rootNode = source._rootNode;
+
+    _chatLogic->SetChatbotHandle(this);
+
+}
+
+
+
 
 
 
@@ -113,7 +143,8 @@ void ChatBot::ReceiveMessageFromUser(std::string message)
     }
 
     // tell current node to move chatbot to new node
-    _currentNode->MoveChatbotToNewNode(newNode);
+    //_currentNode->MoveChatbotToNewNode(newNode);
+    _currentNode->SmartMoveChatbotToNewNode(newNode);
 }
 
 void ChatBot::SetCurrentNode(GraphNode *node)
@@ -180,3 +211,4 @@ int ChatBot::ComputeLevenshteinDistance(std::string s1, std::string s2)
 
     return result;
 }
+
